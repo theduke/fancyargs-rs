@@ -13,23 +13,25 @@ fancyargs turns a regular Rust function into a macro that supports:
 Currently, Rust does not support keyword or default arguments.
 The often-used builder pattern is very boilerplate heavy and often inconvenient.
 This crate provides a more convenient solution until Rust (hopefully) gains
-keyword and default argument support n the future.
+keyword and default argument support in the future.
 
-## Notes
+### Usage Notes
 
 * The original function is preserved and can be used regularily.
-* Both the macro and the function name need to be in scope.
+* **Both the macro and the function name need to be in scope.**
 * When calling the macro, positional arguments may not follow keyword arguments.
 * You can specify multiple functions inside a single macro invocation.
 
- # Full example
+ ## Full example
 
 ```rust
+// Nightly and the `proc_macro_hygiene` feature areis required because proc
+// macros can't yet produce expressions on stable.
 #![feature(proc_macro_hygiene)]
 
 
 fancyargs::fancyargs!(
-    fn format_personal_info(
+    pub fn format_personal_info(
         // Every argument can be specified as a regular positional argument or a keyword arg.
         // Keyword args may be in any order.
         first_name: &str,
@@ -55,6 +57,28 @@ fancyargs::fancyargs!(
     }
 );
 
+fn main() {
+  format_personal_info!("John", "Doe");
+  format_personal_info!("John", "Doe", "Franklin", true, "CTO", "CIO");
+  format_personal_info!("John", "Doe", is_superuser = true);
+  format_personal_info!(
+    is_superuser = false,
+    first_name = "John",
+    last_name = "Doe",
+    "Role 1",
+    "Role 2",
+  );
+}
+```
+
+ ## Limitations
+
+ * Nightly only due to the required [proc_macro_hygiene](https://doc.rust-lang.org/unstable-book/language-features/proc-macro-hygiene.html) feature.
+* Both the macro and the original function must be in scope.
+ * Must be a regular macro rather than a attribute, because attribute proc macros require valid Rust syntax.
+ * Compilation errors are not that great.
+
+
 ## License
 
-MIT. See [LICENSE.txt](./blob/master/LICENSE.txt).
+MIT. See [LICENSE.txt](./LICENSE.txt).

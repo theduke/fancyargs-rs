@@ -5,7 +5,7 @@ name = "fancyargs"
 description = "Turn functions into macros with keyword, default, optional and vararg arguments"
 keywords = ["proc-macro", "arguments"]
 authors = ["Christoph Herzog <chris@theduke.at>"]
-repository = "https://github.com/theduke/fancyargs"
+repository = "https://github.com/theduke/fancyargs-rs"
 documentation = "https://docs.rs/fancyargs"
 
 [dependencies]

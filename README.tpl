@@ -7,4 +7,4 @@
 
 ## License
 
-MIT. See [LICENSE.txt](./blob/master/LICENSE.txt).
+MIT. See [LICENSE.txt](./LICENSE.txt).
