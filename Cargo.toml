@@ -1,0 +1,24 @@
+[package]
+version = "0.1.0"
+edition = "2018"
+name = "fancyargs"
+description = "Turn functions into macros with keyword, default, optional and vararg arguments"
+keywords = ["proc-macro", "arguments"]
+authors = ["Christoph Herzog <chris@theduke.at>"]
+repository = "https://github.com/theduke/fancyargs"
+documentation = "https://docs.rs/fancyargs"
+
+[dependencies]
+quote = "0.6.11"
+lazy_static = "1.3.0"
+proc-macro2 = "0.4.28"
+
+[dependencies.syn]
+features = ["full", "parsing", "printing", "extra-traits"]
+version = "0.15.29"
+
+[lib]
+proc-macro = true
+path = "src/lib.rs"
+
+[dev-dependencies]
